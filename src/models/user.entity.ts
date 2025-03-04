@@ -12,6 +12,9 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  // @Column({ type: 'boolean', default: false })
+  // isActive: boolean;
+
   @OneToMany(() => Book, (book) => book.user)
   books: Book[];
 }
