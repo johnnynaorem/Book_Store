@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { jwtDecode } from "jwt-decode";
-import { deleteBook, fetchAllBook } from "../api/book.controller";
 import ListBook from "../components/ListBook";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../store/slices/userSlice";
+import { clearUser, setUser } from "../store/slices/userSlice";
+import { deletingBook, fetchBook } from "../store/slices/bookSlice";
 
 export default function Home() {
   const { username, userId } = useSelector((state) => state.user);
+  const { books, loading, error } = useSelector((state) => state.book);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [books, setBooks] = useState([]);
+  // const [books, setBooks] = useState([]);
 
-  const fetchingBook = async () => {
-    const responseBook = await fetchAllBook();
-    if (responseBook?.status === 200) {
-      setBooks(responseBook.data);
-    }
-  };
+  // const fetchingBook = async () => {
+  //   const responseBook = await fetchAllBook();
+  //   if (responseBook?.status === 200) {
+  //     setBooks(responseBook.data);
+  //   }
+  // };
 
   const handleBookDelete = async (bookId) => {
     alert("Are You Sure!!!!");
-    console.log(bookId);
-    const response = await deleteBook(bookId);
-    if (response?.status === 200) {
-      console.log(response);
-      fetchingBook();
-    }
+    dispatch(deletingBook(bookId));
   };
 
   const btnDashBoardHandler = () => {
@@ -41,6 +37,7 @@ export default function Home() {
 
   const logOutHandler = () => {
     localStorage.removeItem("token");
+    dispatch(clearUser());
     navigate("/login");
   };
 
@@ -49,7 +46,8 @@ export default function Home() {
     if (token !== "") {
       const decodedData = jwtDecode(token);
       dispatch(setUser(decodedData));
-      fetchingBook();
+      // fetchingBook();
+      dispatch(fetchBook());
     }
   }, []);
   return (
