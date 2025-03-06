@@ -4,10 +4,13 @@ import { jwtDecode } from "jwt-decode";
 import { deleteBook, fetchAllBook } from "../api/book.controller";
 import ListBook from "../components/ListBook";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/slices/userSlice";
 
 export default function Home() {
+  const { username, userId } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState();
   const [books, setBooks] = useState([]);
 
   const fetchingBook = async () => {
@@ -28,26 +31,37 @@ export default function Home() {
   };
 
   const btnDashBoardHandler = () => {
-    navigate("/dashboard");
+    navigate("/dashboard", {
+      state: {
+        username,
+        userId,
+      },
+    });
+  };
+
+  const logOutHandler = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
-    // console.log(token);
     if (token !== "") {
       const decodedData = jwtDecode(token);
-      setUser(decodedData);
+      dispatch(setUser(decodedData));
       fetchingBook();
     }
   }, []);
   return (
     <main>
       <Navbar />
-      {user ? <div>Hello {user.username}</div> : <p>Loading</p>}
+      <div>
+        Hello {username} {userId}
+      </div>
       <button className="btn btn-info" onClick={btnDashBoardHandler}>
         Dashboard
       </button>
-
+      <button onClick={logOutHandler}>Log out</button>
       <div className="container d-flex gap-3">
         {books.length > 0 &&
           books.map((book, index) => (

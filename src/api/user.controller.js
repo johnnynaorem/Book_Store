@@ -21,3 +21,10 @@ export const signUp = async (cred) => {
     alert("error");
   }
 };
+
+export const getUserBook = async (userId) => {
+  try {
+    const response = await axios.get(`${urlBase}/user/${userId}`);
+    return response;
+  } catch (error) {}
+};
