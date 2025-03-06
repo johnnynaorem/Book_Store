@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { SignInDto } from 'src/auth/dtos/SignInDto';
 import { CreateUserDto } from 'src/user/dtos/create-user';
 import { UserService } from 'src/user/services/user/user.service';
 @Controller('user')
@@ -26,6 +27,11 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findById(+id);
+  }
+
+  @Get('/get-user')
+  findByEmail(@Body() signInDto: SignInDto) {
+    return this.userService.findOne(signInDto.email);
   }
 
   @Patch(':id')

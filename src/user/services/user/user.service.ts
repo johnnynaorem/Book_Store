@@ -34,6 +34,10 @@ export class UserService {
     });
   }
 
+  findOne(email: string): Promise<User | null> {
+    return this.userRepo.findOne({ where: { email: email } });
+  }
+
   update(userId: number, updateUser: CreateUserDto) {
     const user = this.userRepo.findOne({ where: { id: userId } });
     if (!user) {

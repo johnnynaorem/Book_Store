@@ -7,6 +7,7 @@ import { BookModule } from './book/book.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import typeorm from './config/typeorm';
 import { DataSourceOptions } from 'typeorm';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { DataSourceOptions } from 'typeorm';
     }),
     UserModule,
     BookModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
