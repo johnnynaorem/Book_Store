@@ -18,3 +18,24 @@ export const deleteBook = async (bookId) => {
     alert("Some error occur while deleting book");
   }
 };
+
+export const createBook = async (userId, bookCred) => {
+  try {
+    const response = await axios.post(
+      `${urlBase}/book/create-book/${userId}`,
+      bookCred
+    );
+    return response;
+  } catch (error) {
+    alert("Error while creating book");
+  }
+};
+
+export const updateBook = async (userId, bookCred) => {
+  try {
+    const response = await axios.patch(`${urlBase}/book/${userId}`, bookCred);
+    return response;
+  } catch (error) {
+    alert("Error while updating book");
+  }
+};

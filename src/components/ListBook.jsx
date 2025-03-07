@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function ListBook({ book, handleBookDelete, index }) {
+export default function ListBook({
+  book,
+  handleBookDelete,
+  index,
+  handlebookUpdate,
+  title,
+}) {
   return (
     <div key={index} className="card" style={{ width: "18rem" }}>
       <img
@@ -14,13 +20,22 @@ export default function ListBook({ book, handleBookDelete, index }) {
         </h6>
         <p className="card-text">total pages: {book.pages}</p>
       </div>
-      <button className=" btn btn-primary">Edit</button>
-      <button
-        className=" btn btn-danger"
-        onClick={() => handleBookDelete(book.id)}
-      >
-        Delete
-      </button>
+      {title !== "home" && (
+        <>
+          <button
+            className=" btn btn-primary"
+            onClick={() => handlebookUpdate(book.id)}
+          >
+            Edit
+          </button>
+          <button
+            className=" btn btn-danger"
+            onClick={() => handleBookDelete(book.id)}
+          >
+            Delete
+          </button>
+        </>
+      )}
     </div>
   );
 }

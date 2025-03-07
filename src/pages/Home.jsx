@@ -64,6 +64,7 @@ export default function Home() {
         {books.length > 0 &&
           books.map((book, index) => (
             <ListBook
+              title="home"
               key={index}
               index={index}
               book={book}
