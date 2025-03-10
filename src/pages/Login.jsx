@@ -3,8 +3,12 @@ import Form from "../components/Form";
 import { signIn } from "../api/user.controller";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../store/slices/userSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
+  const { isLogin, loading, error } = useSelector((state) => state.user);
   const [loginCre, setLoginCre] = useState({ username: "", email: "" });
   const navigate = useNavigate();
 
@@ -18,10 +22,16 @@ export default function Login() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await signIn(loginCre.username, loginCre.email);
-      if (res?.status === 200) {
-        localStorage.setItem("token", JSON.stringify(res.data.access_token));
+      const result = await dispatch(userLogin(loginCre));
+      if (userLogin.fulfilled.match(result)) {
+        console.log("Login successful:", result.payload);
+        localStorage.setItem(
+          "token",
+          JSON.stringify(result.payload.access_token)
+        );
         navigate("/");
+      } else if (userLogin.rejected.match(result)) {
+        console.log("Login failed:", result.error.message);
       }
     } catch (error) {
       console.log(error);
@@ -36,7 +46,7 @@ export default function Login() {
 
   return (
     <>
-      <Navbar />
+      <Navbar isLoginPage={true} />
       <Form
         title="Login"
         handleOnChange={handleOnChange}

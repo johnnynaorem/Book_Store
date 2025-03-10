@@ -23,8 +23,11 @@ export default function ListBook({
       {title !== "home" && (
         <>
           <button
-            className=" btn btn-primary"
-            onClick={() => handlebookUpdate(book.id)}
+            type="button"
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            onClick={handlebookUpdate}
           >
             Edit
           </button>
