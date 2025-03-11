@@ -16,14 +16,20 @@ const Dashboard = () => {
       </pre>
       {username && <h2>Dashboard.... {username}</h2>}
 
-      <button>
-        <Link to={"profile"}> Profile</Link>
+      <button className="btn btn-primary">
+        <Link to={"profile"} style={{ color: "white", textDecoration: "none" }}>
+          {" "}
+          Profile
+        </Link>
       </button>
-      <button>
-        <Link to={`book/${userId}`}> Books</Link>
-      </button>
-      <button>
-        <Link to={"profile"}> Update Profile</Link>
+      <button className="btn btn-primary">
+        <Link
+          to={`book/${userId}`}
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          {" "}
+          Books
+        </Link>
       </button>
       <Outlet />
     </>

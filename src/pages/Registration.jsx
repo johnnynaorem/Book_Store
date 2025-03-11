@@ -30,14 +30,13 @@ export default function Registration() {
   };
   return (
     <>
-      <Navbar />
+      <Navbar isRegistatrationPage={true} />
       <Form
         title="Registration"
         handleOnChange={handleOnChange}
         handleOnSubmit={handleOnSubmit}
         loginCre={registrationCred}
       />
-      <Link to={"/login"}>Login</Link>
     </>
   );
 }

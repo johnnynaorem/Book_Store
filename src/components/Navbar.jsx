@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { clearUser } from "../store/slices/userSlice";
 
-export default function Navbar({ isLoginPage }) {
+export default function Navbar({ isLoginPage, isRegistrationPage }) {
   const { username } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -80,9 +80,31 @@ export default function Navbar({ isLoginPage }) {
               </button>
             </>
           ) : !isLoginPage ? (
-            <button className="btn btn-primary">Login</button>
+            <button className="btn btn-primary">
+              <NavLink
+                to={"/login"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontWeight: "500",
+                }}
+              >
+                Login
+              </NavLink>
+            </button>
           ) : (
-            ""
+            <button className="btn btn-secondary">
+              <NavLink
+                to={"/registration"}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontWeight: "500",
+                }}
+              >
+                Registration
+              </NavLink>
+            </button>
           )}
         </div>
       </div>

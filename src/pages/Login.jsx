@@ -53,7 +53,6 @@ export default function Login() {
         handleOnSubmit={handleOnSubmit}
         loginCre={loginCre}
       />
-      <Link to={"/registration"}>Create Account</Link>
     </>
   );
 }

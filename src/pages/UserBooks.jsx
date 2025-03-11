@@ -77,11 +77,11 @@ const UserBooks = () => {
   }, [id]);
 
   return (
-    <div>
+    <div className="mt-3 container">
       {/* <!-- Button trigger modal --> */}
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-light my-2"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         onClick={openCreateModal}
