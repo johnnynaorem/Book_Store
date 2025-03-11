@@ -36,7 +36,11 @@ export class BookService {
   async update(bookId: number, updateBook: CreateBookDto) {
     const existBook = await this.findOne(bookId);
     if (!existBook) throw new NotFoundException('book not found....');
-    return this.bookRepo.update({ id: bookId }, { ...updateBook });
+    this.bookRepo.update({ id: bookId }, { ...updateBook });
+    return {
+      status: true,
+      message: 'Book updated successfully.',
+    };
   }
 
   async delete(bookId: number) {
